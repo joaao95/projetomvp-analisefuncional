@@ -1,12 +1,85 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Formulário de Integração</title>
+    <title>Paytrack - Análise Funcional Integrações</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        form {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 8px;
+        }
+        label, option {
+            font-size: 16px;
+        }
+        input[type=text], select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: #fff;
+            color: black;
+        }
+        input[type=submit] {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+        h2 {
+            text-align: center;
+            color: #fff;
+        }
+        .explanation {
+            margin-top: 20px;
+            font-size: 14px;
+            text-align: center;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 10px;
+            border-radius: 8px;
+            background-color: #222;
+        }
+    </style>
 </head>
 <body>
+    <h2>Paytrack - Análise Funcional Integrações</h2>
     <form action="/submit" method="post">
-        <label for="erp">Qual é o seu ERP?</label>
-        <input type="text" id="erp" name="erp"><br><br>
+        <label for="erp">Selecione o seu ERP:</label>
+        <select id="erp" name="erp">
+            <option value="SAP ECC/4HANA">SAP ECC/4HANA</option>
+            <option value="SAP B1">SAP B1</option>
+            <option value="TOTVS Protheus">TOTVS Protheus</option>
+            <option value="TOTVS RM">TOTVS RM</option>
+            <option value="TOTVS DataSul">TOTVS DataSul</option>
+            <option value="Sankhya">Sankhya</option>
+            <option value="OMIE">OMIE</option>
+            <option value="Senior (Sappiens)">Senior (Sappiens)</option>
+            <option value="Oracle">Oracle</option>
+            <option value="Benner">Benner</option>
+            <option value="Microsoft AX">Microsoft AX</option>
+            <option value="WK">WK</option>
+            <option value="Conta Azul">Conta Azul</option>
+            <option value="Mega">Mega</option>
+            <option value="Outros">Outros</option>
+        </select><br><br>
 
         <label for="processos">Quais processos você deseja integrar?</label>
         <select id="processos" name="processos" multiple>
@@ -41,9 +114,13 @@
         <input type="submit" value="Enviar">
     </form>
 
+    <div class="explanation">
+        O objetivo será com estas informações buscar as melhores práticas utilizando a inteligência artificial para iniciar uma análise funcional com extrema qualidade. Após enviar o formulário, será realizado o download de um arquivo com as informações já formatadas e pré criadas de acordo com a IA e os parâmetros repassados, após isto, você deve complementar com as informações que acha conveniente e enviar para a Paytrack.
+    </div>
+
     <script>
-        document.getElementById('processos').setAttribute('size', 5); // Ajusta o tamanho do combobox para mostrar todas as opções
-        document.getElementById('informacoes_erp').setAttribute('size', 10); // Ajusta o tamanho do combobox para mostrar as opções
+        document.getElementById('processos').setAttribute('size', 5);
+        document.getElementById('informacoes_erp').setAttribute('size', 10);
     </script>
 </body>
 </html>
