@@ -32,7 +32,7 @@ def submit():
             "3. - A Análise funcional precisará ser separada no documento por cenário selecionado, ou seja, uma análise para adiantamento, uma para prestação de contas etc.")
 
 
-        headers = {'Authorization': 'Bearer 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'}
+        headers = {'Authorization': 'Bearer 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'}
         data = {
             "model": "gpt-3.5-turbo",
             "messages": [{"role": "user", "content": pergunta}],
