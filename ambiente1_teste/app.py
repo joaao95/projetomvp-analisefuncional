@@ -25,8 +25,8 @@ def submit():
             "Preciso que no retorno do documento contenha um mapeamento de campos olhando para o ERP selecionado, "
             "Além de me retornar um JSON de exemplo. "
             "É importante salientar, que o mapeamento de campos precisa vir no formato tabela e o JSON, "
-            "Precisa ser formatado com as nomenclaturas do ERP, "
-            "como por exemplo bukrs que significa a empresa para o SAP e assim sucessivamente. "
+            "E precisa ser formatado com as nomenclaturas do ERP, "
+            "Como por exemplo bukrs que significa a empresa para o SAP e assim sucessivamente. "
             "Seguem algumas diretrizes que o nosso sistema Paytrack tem para integrar com os ERPs. "
             "1. - Utilizamos comunicação Sincrona com os Webservices do cliente. "
             "2. - A Paytrack é ativa nas integrações, ou seja, após este passo o cliente irá disponibilizar um Webservice para consumirmos. "
@@ -34,9 +34,9 @@ def submit():
 
         headers = {'Authorization': f'Bearer {os.getenv("OPENAI_API_KEY")}'}
         data = {
-            "model": "gpt-3.5-turbo",
+            "model": "gpt-4",
             "messages": [{"role": "user", "content": pergunta}],
-            "temperature": 0.7
+            "temperature": 0.5
         }
 
         response = requests.post('https://api.openai.com/v1/chat/completions', headers=headers, json=data)
