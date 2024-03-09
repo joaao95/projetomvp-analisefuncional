@@ -32,7 +32,10 @@ def submit():
             "3. - A Análise funcional precisará ser separada no documento por cenário selecionado, ou seja, uma análise para adiantamento, uma para prestação de contas etc.")
 
 
-        headers = {'Authorization': 'Bearer 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'}
+        # Removido para usar variável de ambiente
+        #headers = {'Authorization': 'Bearer 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'}
+        print({os.getenv("OPENAI_API_KEY")})
+        headers = {'Authorization': f'Bearer {os.getenv("OPENAI_API_KEY")}'}
         data = {
             "model": "gpt-3.5-turbo",
             "messages": [{"role": "user", "content": pergunta}],
