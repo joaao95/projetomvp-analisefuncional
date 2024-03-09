@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Formulário de Integração</title>
+</head>
+<body>
+    <form action="/submit" method="post">
+        <label for="erp">Qual é o seu ERP?</label>
+        <input type="text" id="erp" name="erp"><br><br>
+
+        <label for="processos">Quais processos você deseja integrar?</label>
+        <select id="processos" name="processos" multiple>
+            <option value="Adiantamentos em espécie">Adiantamentos em espécie</option>
+            <option value="Adiantamentos no Cartão">Adiantamentos no Cartão</option>
+            <option value="Prestação de Contas">Prestação de Contas</option>
+            <option value="Reembolso">Reembolso</option>
+            <option value="Despesas do Cartão Corporativo">Despesas do Cartão Corporativo</option>
+        </select><br><br>
+
+        <label for="informacoes_erp">Quais informações o seu ERP obrigatoriamente precisa receber para realizar tais integrações?</label>
+        <select id="informacoes_erp" name="informacoes_erp" multiple>
+            <option value="Valor total relatório">Valor total relatório</option>
+            <option value="CPF">CPF</option>
+            <option value="Data do lançamento">Data do lançamento</option>
+            <option value="Data de vencimento">Data de vencimento</option>
+            <option value="Empresa">Empresa</option>
+            <option value="Filial">Filial</option>
+            <option value="Divisão">Divisão</option>
+            <option value="Descrição relatório">Descrição relatório</option>
+            <option value="Motivo">Motivo</option>
+            <option value="Tipo de documento">Tipo de documento</option>
+            <option value="Rateio">Rateio</option>
+            <option value="Valor do rateio">Valor do rateio</option>
+            <option value="Centro de custo">Centro de custo</option>
+            <option value="Ordem interna">Ordem interna</option>
+            <option value="PEP">PEP</option>
+            <option value="Conta contábil">Conta contábil</option>
+            <option value="Natureza">Natureza</option>
+        </select><br><br>
+
+        <input type="submit" value="Enviar">
+    </form>
+
+    <script>
+        document.getElementById('processos').setAttribute('size', 5); // Ajusta o tamanho do combobox para mostrar todas as opções
+        document.getElementById('informacoes_erp').setAttribute('size', 10); // Ajusta o tamanho do combobox para mostrar as opções
+    </script>
+</body>
+</html>
