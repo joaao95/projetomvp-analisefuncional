@@ -1,7 +1,8 @@
 import requests
 from flask import Flask, render_template, request, send_file
 from docx import Document
-from docx.shared import Pt
+from docx.shared import Pt, RGBColor
+from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 import os
 
 app = Flask(__name__)
@@ -22,7 +23,7 @@ def submit():
             f"Processos desejados: {', '.join(processos)}. "
             f"Informações necessárias pelo ERP repassadas pelo cliente: {', '.join(informacoes_erp)}. "
             "Preciso que no retorno do documento contenha um mapeamento de campos olhando para o ERP selecionado, "
-            "além de me retornar um JSON de exemplo. "
+            "Além de me retornar um JSON de exemplo. "
             "É importante salientar, que o mapeamento de campos precisa vir no formato tabela e o JSON, "
             "Precisa ser formatado com as nomenclaturas do ERP, "
             "como por exemplo bukrs que significa a empresa para o SAP e assim sucessivamente. "
@@ -31,10 +32,6 @@ def submit():
             "2. - A Paytrack é ativa nas integrações, ou seja, após este passo o cliente irá disponibilizar um Webservice para consumirmos. "
             "3. - A Análise funcional precisará ser separada no documento por cenário selecionado, ou seja, uma análise para adiantamento, uma para prestação de contas etc.")
 
-
-        # Removido para usar variável de ambiente
-        #headers = {'Authorization': 'Bearer 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'}
-        print({os.getenv("OPENAI_API_KEY")})
         headers = {'Authorization': f'Bearer {os.getenv("OPENAI_API_KEY")}'}
         data = {
             "model": "gpt-3.5-turbo",
@@ -47,16 +44,19 @@ def submit():
         if response.status_code == 200:
             resposta_chatgpt = response.json()['choices'][0]['message']['content']
 
-            # Criar o documento com os dados do formulário e a resposta do ChatGPT
+            # Início da criação do documento com os dados do formulário e a resposta do ChatGPT
             document = Document()
-            document.add_heading('Integração ERP com Paytrack', 0)
-            document.add_paragraph(f"ERP: {erp}")
-            document.add_paragraph(f"Processos desejados: {', '.join(processos)}")
-            document.add_paragraph(f"Informações necessárias pelo ERP: {', '.join(informacoes_erp)}")
+            document.add_heading('Integração ERP com Paytrack', level=0)
+
+            # Adiciona as informações básicas
+            par = document.add_paragraph(f"ERP: {erp}\nProcessos desejados: {', '.join(processos)}\nInformações necessárias pelo ERP: {', '.join(informacoes_erp)}")
+            par.style = document.styles['Normal']
+
+            # Adiciona a análise funcional recomendada
             document.add_heading('Análise Funcional Recomendada:', level=1)
             document.add_paragraph(resposta_chatgpt)
 
-            # Adicionando informações ERP selecionadas em uma tabela
+            # Tabela de mapeamento de campos ERP
             document.add_page_break()
             document.add_heading('Mapeamento de Campos ERP:', level=1)
             table = document.add_table(rows=1, cols=2)
@@ -66,18 +66,21 @@ def submit():
             for campo in informacoes_erp:
                 row_cells = table.add_row().cells
                 row_cells[0].text = campo
-                row_cells[1].text = "Descrição para " + campo  # Aqui você pode personalizar as descrições
+                # Exemplo de personalização de descrições
+                row_cells[1].text = "Descrição detalhada para " + campo
 
-            # Salvar o documento
-            diretorio_base = os.path.abspath(os.path.dirname(__file__))
-            filename = os.path.join(diretorio_base, "analise_integracao.docx")
-            document.save(filename)
+            # Personalize aqui a formatação do documento, se necessário
 
-            # Enviar o arquivo gerado para o usuário
-            return send_file(filename, as_attachment=True)
+            # Salvando e enviando o documento
+            filename = "analise_integracao.docx"
+            filepath = os.path.join(os.path.abspath(os.path.dirname(__file__)), filename)
+            document.save(filepath)
+
+            return send_file(filepath, as_attachment=True)
         else:
-            print(response.json())  # Ajuda a depurar em caso de erro na API
+            print(response.json())  # Para ajudar na depuração
             return "Erro ao comunicar com a API do ChatGPT", 500
 
 if __name__ == '__main__':
     app.run(debug=True)
+    
