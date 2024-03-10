@@ -34,7 +34,7 @@ def submit():
 
         headers = {'Authorization': f'Bearer {os.getenv("OPENAI_API_KEY")}'}
         data = {
-            "model": "gpt-4",
+            "model": "gpt-3.5-turbo",
             "messages": [{"role": "user", "content": pergunta}],
             "temperature": 0.5
         }
