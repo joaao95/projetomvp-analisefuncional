@@ -35,9 +35,11 @@ def submit():
             "3. - A Análise funcional precisará ser separada no documento por cenário selecionado, ou seja, uma análise para adiantamento, uma para prestação de contas etc.")
 
 
+        print("pergunta" + pergunta)
+
         headers = {'Authorization': f'Bearer {os.getenv("OPENAI_API_KEY")}'}
         data = {
-            "model": "gpt-3.5-turbo",
+            "model": "gpt-3.5-turbo-instruct",
             "messages": [ {
                             "role": "assistant",
                             "content": "Você é um especialista em análise funcional de integrações, com conhecimento nos maiores ERPs de marcado com foco em documentações e mapeamentos"
